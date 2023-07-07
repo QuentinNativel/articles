@@ -22,6 +22,8 @@ On the project, we wanted to add a feature of report generation to have a visual
 
 # Tech strategy
 
+## Find inspiration 💡
+
 First, I started with a naive search on how other auditing tools were generating their reports. I found the example of [jest-html-reporter](https://github.com/Hazyzh/jest-html-reporters/tree/master)
 
 The report looks amazing ! 😍
@@ -30,21 +32,23 @@ The report looks amazing ! 😍
 
 And guess what ? It is written in react ! 🚀
 
-## How does it work ?
+## Dig in how it works 🪛
 
 In the details, I didn't understand everything 🙈, but it doesn't matter! What matters is the general idea !
 
-So they have a React application, the app is built into a template html file.
+- They have a React application, the app is built into a template html file.
 
-The template file contains a placeholder string, for example for jest-html-report, it is:
+- The template file contains a placeholder string, for example for jest-html-report, it is:
 
 ```
 module.exports = '<<<JEST-HTML-REPLACE-PLACEHOLDER>>>';
 ```
 
-Then at runtime, jest copies the template file, then replace the placeholder with the result of the analysis and 💥 ! It generates an html report !
+- Then at runtime, jest copies the template file, then replace the placeholder with the result of the analysis and 💥 ! It generates an html report !
 
 # Let's write a report template
+
+Ok, now we know the general idea, let's write our own report template.
 
 ## Create a react app
 
@@ -87,7 +91,7 @@ Now if you build again, you will have a single html file in the dist folder. �
 
 If you open it in your browser, you will see your app, except for a small detail: the images are not displayed! 😱 Because the images are absolute imports to other svg files in the dist folder. The issue is not problematic but a bit painful to fix: the svg must be converted into react components (but that is not the topic of this article 😜).
 
-## Customize your report
+## Customize the report
 
 Let's write a super simple report with just a score
 
@@ -151,7 +155,9 @@ h1 {
 }
 ```
 
-Well, it is not the most beautiful report, but it is a start. 🤷‍♂️ ![image](./assets/dummy-report-40.png)
+Well, it is not the most beautiful report, but it is a start. 🤷‍♂️
+
+![image](./assets/dummy-report-40.png)
 
 ## Pass data to the report
 
@@ -188,15 +194,19 @@ The placeholder `<<<RESULTS_PLACEHOLDER>>>` will be replaced by the result of th
 
 ## Test the template manually
 
-Now we have a template, we want to test it. First, let's build the report again and copy it to a new file report.html.
+Now we have a template, we want to test it.
 
-Open the report.html in your editor, and search for `<<<RESULTS_PLACEHOLDER>>>`. Replace it with `{\"score\": 100}` (⚠️ don't forget to escape the quotes !). Save the file and open it in your browser.
+- First, let's build the report again and copy it to a new file report.html.
 
-You should see the score 100!! 🎉.
+- Open the report.html in your editor, and search for `<<<RESULTS_PLACEHOLDER>>>`.
+- Replace it with `{\"score\": 100}` (⚠️ don't forget to escape the quotes !).
+- Save the file and open it in your browser.
+
+**You should see the score 100!! 🎉.**
 
 ![](./assets/dummy-report-100.png)
 
-## Automate !
+## Automate ! 🤖
 
 In order to build the report from your cli, just automate the previous steps with a script:
 
