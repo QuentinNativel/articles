@@ -1,9 +1,9 @@
 ---
 published: false
 title: 'Generate pretty reports from your cli tool'
-cover_image: 'https://raw.githubusercontent.com/YOUR-USERNAME/YOUR-REPO/master/blog-posts/NAME-OF-YOUR-BLOG-POST/assets/your-asset.png'
+cover_image: 'https://raw.githubusercontent.com/QuentinNativel/articles/master/blog-posts/cli-reporting/assets/dummy-report-100.png'
 description: 'Simple way to generate report from your cli using only vite and react'
-tags: react, reporting, cli, vite
+tags: webdev, javascript, react, tutorial
 series:
 canonical_url:
 ---
@@ -22,7 +22,7 @@ On the project, we wanted to add a feature of report generation to have a visual
 
 # Tech strategy
 
-First, I started with a naive search on how other auditing tools were generating their reports. I found the example of [jest-html-reporter].(https://github.com/Hazyzh/jest-html-reporters/tree/master)
+First, I started with a naive search on how other auditing tools were generating their reports. I found the example of [jest-html-reporter](https://github.com/Hazyzh/jest-html-reporters/tree/master)
 
 The report looks amazing ! 😍
 
@@ -151,7 +151,7 @@ h1 {
 }
 ```
 
-Well, it is not the most beautiful report, but it is a start. 🤷‍♂️ ![image](assets/dummy-report-40.png)
+Well, it is not the most beautiful report, but it is a start. 🤷‍♂️ ![image](./assets/dummy-report-40.png)
 
 ## Pass data to the report
 
@@ -192,7 +192,9 @@ Now we have a template, we want to test it. First, let's build the report again 
 
 Open the report.html in your editor, and search for `<<<RESULTS_PLACEHOLDER>>>`. Replace it with `{\"score\": 100}` (⚠️ don't forget to escape the quotes !). Save the file and open it in your browser.
 
-You should see the score 100!! 🎉. ![](assets/dummy-report-100.png)
+You should see the score 100!! 🎉.
+
+![](./assets/dummy-report-100.png)
 
 ## Automate !
 
@@ -204,3 +206,7 @@ In order to build the report from your cli, just automate the previous steps wit
 Easy isn't it ? 😎
 
 Now it's your time to shine ! 🌟
+
+# Found a typo?
+
+If you've found a typo, a sentence that could be improved or anything else that should be updated on this blog post, you can access it through a git repository and make a pull request. Instead of posting a comment, please go directly to <REPO URL> and open a new pull request with your changes.
