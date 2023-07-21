@@ -2,51 +2,55 @@
 published: false
 title: 'Generate pretty reports from your cli tool'
 cover_image: 'https://raw.githubusercontent.com/QuentinNativel/articles/master/blog-posts/cli-reporting/assets/dummy-report-100.png'
-description: 'Simple way to generate report from your cli using only vite and react'
+description: 'Feature insight: sls-mentor awesome new report'
 tags: webdev, javascript, react, tutorial
 series:
 canonical_url:
 ---
 
-# Context
+# TLDR
 
-I work on an open source project: [sls-mentor](https://www.sls-mentor.dev/), that audits an aws stack and give advices on the best practices to configure serverless resources on AWS.
+In this feature insight, we explain how we generate the new reporting feature from sls-mentor, getting inspiration from [jest-html-reporter](https://github.com/Hazyzh/jest-html-reporters). And we show you how to code your own report tool using react.
 
-On the project, we wanted to add a feature of report generation to have a visual document with every important information at a glance and that can be shared easily.
+# Getting a fresh new report for sls-mentor ?
 
-# Requirements
+With my team we have been building [sls-mentor](https://www.sls-mentor.dev/), a **free and open source** tool to audit your serverless stack on AWSand to give you tips to improve it!
 
-- Report generation is done in a CLI ⌨️
-- The report is pretty 💄
-- As a fullstack developper, I wanted to use a tool that I know well to generate the report: [React](https://react.dev/)
+The tool runs in the cli and outputs the result directly in the terminal. We pimped the result, and it is already quite good-looking 😎.
 
-# Tech strategy
+![](./assets/sls-mentor-cli.png)
 
-## Find inspiration 💡
+But a cli print is not easy to share and the look still feels a bit rough! And as developers, we have to present technical concepts all the time, and we learned that the presentation is as important as the content. That's why we wanted a report that can be presented to our clients, our managers to convey the quality of our serverless infrastructures or the need for real work on it.
 
-First, I started with a naive search on how other auditing tools were generating their reports. I found the example of [jest-html-reporter](https://github.com/Hazyzh/jest-html-reporters/tree/master)
+That's why we decided to add a reporting feature to sls-mentor.
 
-The report looks amazing ! 😍
+# It does look better doesn't it ? 😍
 
-![](./assets/jest-html-reporter.png)
+![](./assets/sls-mentor-report.png)
 
-And guess what ? It is written in react ! 🚀
+The report is generated in the cli as a single html file. So you can share it and display it in any browser! Showing your audit results has never been so easy! 🚀
 
-## Dig in how it works 🪛
+Moreover tips are displayed on the bottom to help you improve your stack, and they redirect to sls-mentor website to get more details. 🤓
 
-In the details, I didn't understand everything 🙈, but it doesn't matter! What matters is the general idea !
+# What's under the hood ? 🪛
 
-- They have a React application, the app is built into a template html file.
+The report is generated in React, it is a one of most popular and well known framework in web development so it is easy to customize and to add new features. we are already working on it! 💪
 
-- The template file contains a placeholder string, for example for jest-html-report, it is:
+We actually got inspired by [jest-html-reporter](https://github.com/Hazyzh/jest-html-reporters) to generate the report.
 
-```
+First we write a template react app, and we build it into a single html file.
+
+The template file contains a placeholder string, for example for jest-html-report, it is:
+
+```javascript
 module.exports = '<<<JEST-HTML-REPLACE-PLACEHOLDER>>>';
 ```
 
-- Then at runtime, jest copies the template file, then replace the placeholder with the result of the analysis and 💥 ! It generates an html report !
+Then at runtime, jest copies the template file, then replaces the placeholder with the result of the analysis and 💥! It generates an html report!
 
-# Let's write a report template
+Simple isn't it ? 😎
+
+# Coding time 👨🏽‍💻! Let's write a report template
 
 Ok, now we know the general idea, let's write our own report template.
 
@@ -66,7 +70,7 @@ Now you have a react app. Try to build it.
 
 It generates a dist folder with an index.html file. But if you try to open it in your browser, you will see a blank page.
 
-If you open the index.html in an editor, you will notice it is almost empty, it just an empty div and some scripts to js files.
+If you open the index.html in an editor, you will notice it just an empty div and some scripts to js files.
 
 That's not what we want, we want a single html file that contains everything. So it is easy to share.
 
@@ -89,7 +93,7 @@ export default defineConfig({
 
 Now if you build again, you will have a single html file in the dist folder. 🎉
 
-If you open it in your browser, you will see your app, except for a small detail: the images are not displayed! 😱 Because the images are absolute imports to other svg files in the dist folder. The issue is not problematic but a bit painful to fix: the svg must be converted into react components (but that is not the topic of this article 😜).
+If you open it in your browser, you will see your app, except for a small detail: the images are not displayed! 😱 Because the images are absolute imports to other svg files in the dist folder. The issue is not problematic but a bit painful to fix: the svg must be converted into react components (which can be done using this great [tool](https://react-svgr.com/playground/)).
 
 ## Customize the report
 
@@ -197,7 +201,6 @@ The placeholder `<<<RESULTS_PLACEHOLDER>>>` will be replaced by the result of th
 Now we have a template, we want to test it.
 
 - First, let's build the report again and copy it to a new file report.html.
-
 - Open the report.html in your editor, and search for `<<<RESULTS_PLACEHOLDER>>>`.
 - Replace it with `{\"score\": 100}` (⚠️ don't forget to escape the quotes !).
 - Save the file and open it in your browser.
@@ -213,10 +216,27 @@ In order to build the report from your cli, just automate the previous steps wit
 - duplicate the template file to a new file report.html
 - replace the placeholder with the result of the analysis and don't forget to escape the quotes
 
-Easy isn't it ? 😎
+Here is an example of script with nodejs:
+
+```typescript
+import { readFileSync, writeFileSync } from 'node:fs';
+
+const TEMPLATE_PATH = 'template/index.html';
+const PLACEHOLDER = '<<<RESULTS_PLACEHOLDER>>>';
+const REPORT_OUTPUT_PATH = 'public/report.html';
+const auditResult = { score: 100 };
+
+const data = JSON.stringify(auditResult).replace(/"/g, '\\"');
+
+const template = readFileSync(TEMPLATE_PATH).toString();
+
+const report = template.replace(PLACEHOLDER, data);
+
+writeFileSync(REPORT_OUTPUT_PATH, report);
+```
 
 Now it's your time to shine ! 🌟
 
 # Found a typo?
 
-If you've found a typo, a sentence that could be improved or anything else that should be updated on this blog post, you can access it through a git repository and make a pull request. Instead of posting a comment, please go directly to <REPO URL> and open a new pull request with your changes.
+If you've found a typo, a sentence that could be improved or anything else that should be updated on this blog post, you can access it through a git repository and make a pull request. Instead of posting a comment, please go directly to https://github.com/QuentinNativel/articles and open a new pull request with your changes.
