@@ -14,4 +14,4 @@ canonical_url:
 
 Few month ago, we arrived in the year 2023, wonderful time to be alive for a developer. We have cloud computing, typescript, chatGpt. Everything to be happy! So my last project had this vibe full Serverless project, typescript for proper typing, life is great. Until suddenly we are ask for a new feature: a pivot table in an excel. Because in the world we live in, also live people that were not born with a keyboard under the fingers
 
-*insert random  meme here*
+_insert random meme here_
