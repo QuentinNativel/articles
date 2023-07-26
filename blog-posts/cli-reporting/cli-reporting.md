@@ -1,6 +1,6 @@
 ---
 published: true
-title: 'Generate pretty reports from your cli tool'
+title: 'How we made the new report feature of sls-mentor'
 cover_image: 'https://raw.githubusercontent.com/QuentinNativel/articles/master/blog-posts/cli-reporting/assets/dummy-report-100.png'
 description: 'Feature insight: sls-mentor awesome new report'
 tags: webdev, javascript, react, tutorial
