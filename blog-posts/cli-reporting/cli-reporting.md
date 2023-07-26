@@ -1,5 +1,5 @@
 ---
-published: false
+published: true
 title: 'Generate pretty reports from your cli tool'
 cover_image: 'https://raw.githubusercontent.com/QuentinNativel/articles/master/blog-posts/cli-reporting/assets/dummy-report-100.png'
 description: 'Feature insight: sls-mentor awesome new report'
